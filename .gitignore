@@ -103,9 +103,11 @@ celerybeat.pid
 
 # Environments
 .env
+.env-mysql
 .venv
 env/
 venv/
+venv
 ENV/
 env.bak/
 venv.bak/
@@ -127,3 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# SQLite databases
+*.sqlite
