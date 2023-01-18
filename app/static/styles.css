@@ -1,0 +1,39 @@
+header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.navbar {
+    min-height: 70px;
+    width: 100%;
+    border-radius: 0;
+}
+
+.navbar-brand {
+    padding: 25px 25px
+}
+
+@media (min-width: 768px) {
+    .navbar-nav {
+        padding: 10px;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+footer {
+    position: relative;
+    margin-top: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
