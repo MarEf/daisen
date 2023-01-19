@@ -25,16 +25,16 @@ def index():
 
 @app.route('/members')
 def members():
-    return '<h1>Tälle sivulle tulee sivutettu näkymä kaikista jäsenhakemuksista</h1>'
+    return render_template("members.html")
 
 @app.route('/members/<id>')
 def member(id):
-    return '<h1>Tälle sivulle tulee yksittäisen hakemuksen tiedot muokkauslomakkeella</h1>'
+    return render_template("member.html", id=id)
 
 @app.route('/users')
 def users():
-    return '<h1>Tänne tulee näkymä kaikista käyttäjistä</h1>'
+    return render_template("users.html")
 
 @app.route('/users/<name>')
 def user(name):
-    return '<h1>Tänne tulee yksittäisen käyttäjän tietojen muokkaussivu</h1>'
+    return render_template("user.html", id=id)
