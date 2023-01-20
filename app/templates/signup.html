@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block headline %}
+{% if lang=='fi' %}
+Liity
+{% else %}
+Join
+{% endif %}
+
+{% endblock %}
+
+{%block page_content %}
+
+{{ wtf.quick_form(form) }}
+{% if lang=='fi' %}
+<div class="note">* Pakollinen kenttä</div>
+{% else %}
+<div class="note">* Required field</div>
+{% endif %}
+
+{% endblock %}

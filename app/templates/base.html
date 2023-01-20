@@ -39,7 +39,11 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
                 <li><a href="/users">Käyttäjätilit</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                {%if user%}
+                <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu ulos</a></li>
+                {% else %}
                 <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -52,6 +56,14 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
     {% endblock %}</h1>
 
 <div class="container">
+
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
     {% block page_content %}
     {% endblock %}
 </div>

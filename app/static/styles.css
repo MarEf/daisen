@@ -27,8 +27,11 @@ body {
 }
 
 h1 {
-    padding-left: 15px;
-    padding-right: 15px;
+    text-align: center;
+}
+
+.note {
+    margin-top: 1em;
 }
 
 footer {
