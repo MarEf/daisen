@@ -60,7 +60,9 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {% autoescape false %}
         {{ message }}
+        {% endautoescape %}
     </div>
     {% endfor %}
 

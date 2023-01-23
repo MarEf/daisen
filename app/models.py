@@ -1,6 +1,7 @@
 from flask import current_app, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 from . import db
 
 
@@ -15,6 +16,7 @@ class Member(db.Model):
     studentNumber = db.Column(db.String(10), nullable=True) # Outo pseudopakollinen arvo, jota ei voi tarkistaa backendissä...
     nickname = db.Column(db.String(255), nullable = True)
     discovered = db.Column(db.Text, nullable = True)
+    applicationDate = db.Column(db.DateTime, default=datetime.now())
     status = db.Column(db.Boolean, default=False)
 
     def __repr__(self):

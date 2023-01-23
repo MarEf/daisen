@@ -28,15 +28,44 @@ body {
 
 h1 {
     text-align: center;
+    margin-bottom: 2em;
 }
 
 .note {
     margin-top: 1em;
 }
 
+/*
+table {
+    width: 100%
+}
+
+th,
+td {
+    padding: 0.5em;
+}
+*/
+
 footer {
     position: relative;
     margin-top: auto;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+select {
+    display: inline-block;
+    width: fit-content;
+    padding: 7.7px 3em 7.7px 1em;
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .375rem;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7em;
+    margin-bottom: 2em;
 }
