@@ -40,9 +40,11 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {%if user%}
-                <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu ulos</a></li>
+                <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu
+                        ulos</a></li>
                 {% else %}
-                <li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu sisään</a></li>
+                <li><a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu
+                        sisään</a></li>
                 {% endif %}
             </ul>
         </div>

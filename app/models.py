@@ -4,8 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from . import db
 
-
-
 class Member(db.Model):
     __tablename__ = 'members'
     id = db.Column(db.Integer, primary_key=True)
@@ -25,7 +23,9 @@ class Member(db.Model):
     def set_status(self, new_status: bool):
         self.status = new_status
 
-class User(db.Model):
+from flask_login import UserMixin
+
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True, nullable=False)
     email = db.Column(db.String(254), unique=True, index=True)
@@ -44,3 +44,9 @@ class User(db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+from . import login_manager
+
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(int(id))

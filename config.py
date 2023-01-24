@@ -3,9 +3,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
-    MAIL_SERVER = ''
-    MAIL_PORT = ''
-    MAIL_USE_TLS = ''
+    MAIL_SERVER = 'smtp.mailtrap.io'
+    MAIL_PORT = '2525'
+    MAIL_USE_TLS = 'True'
+    MAIL_USE_SSL = 'False'
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
