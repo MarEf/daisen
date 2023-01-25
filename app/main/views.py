@@ -5,7 +5,10 @@ from .forms import SignupFormEng, SignupFormFi, EditMemberForm
 from . import main
 from flask_login import login_required
 
-from .. import db
+# Poista valmiista ohjelmistosta
+from .forms import EmailTest
+
+from .. import db, email
 
 
 @main.route('/')
@@ -72,7 +75,17 @@ def liity():
         return redirect('/join')
     return render_template('signup.html', form=form, lang='fi')
 
+
 @main.route('/kirjautumistesti')
 @login_required
 def secret():
     return "Kirjaudu sisään!"
+
+@main.route("/email_test", methods=["GET", "POST"])
+def email_test():
+    form = EmailTest()
+    if form.validate_on_submit():
+        email.send_email(form.email.data, "Testiviesti", "mail")
+        flash('Viesti lähetetty')
+        return redirect('/email_test')
+    return render_template("email_test.html", form=form)

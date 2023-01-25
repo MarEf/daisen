@@ -32,3 +32,7 @@ class EditMemberForm(FlaskForm):
     discovered = TextAreaField('Kuinka kuulit meistä?', validators=[Length(max=4000), Optional()])
     status = BooleanField('Hyväksy jäsenhakemus')
     submit = SubmitField('Tallenna')
+
+class EmailTest(FlaskForm):
+    email = StringField("Sähköpostiosoite", validators=[DataRequired(), Length(max=254), Email()])
+    submit = SubmitField("Lähetä testiviesti")
