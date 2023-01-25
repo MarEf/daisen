@@ -1,7 +1,8 @@
 
 from ..models import User, Member
 from flask import render_template, flash, redirect, url_for, request
-from .forms import SignupFormEng, SignupFormFi, EditMemberForm
+from .forms import SignupFormEng, SignupFormFi, EditMemberForm, BatchEditForm
+from wtforms import BooleanField
 from . import main
 from flask_login import login_required
 
@@ -15,12 +16,44 @@ from .. import db, email
 def index():
     return render_template("index.html")
 
-@main.route('/members')
+@main.route('/members', methods=['GET', 'POST'])
 def members():
+    class Edit(BatchEditForm):
+        pass
+
     page = request.args.get('page', 1, type=int)
     pagination = Member.query.paginate(page=page, per_page=20, error_out=False)
     members = pagination.items
-    return render_template("members.html", members=members, pagination=pagination)
+
+    # Luodaan hallinnointilomake dynaamisesti
+    for member in members:
+        setattr(Edit, "member_"+str(member.id), BooleanField(None))
+    
+    batchEdit = Edit()
+
+    if batchEdit.is_submitted():
+        message = ""
+        
+        if (batchEdit.actions.data == "delete"):
+            message = message+"Valitut jäsenhakemukset on poistettu järjestelmästä pysyvästi: <br><br>"
+            for member in members:
+                if (batchEdit['member_'+str(member.id)].data == True):
+                    message = message+member.email+"<br>"
+                    db.session.delete(member)
+        elif (batchEdit.actions.data == "accept"):
+            message = message+"Valitut jäsenhakemukset on hyväksytty:<br><br>"
+            for member in members:
+                if (batchEdit['member_'+str(member.id)].data == True):
+                    member.status = True
+                    message = message+member.email+"<br>"
+        
+        flash(message)
+
+        db.session.commit()
+
+        return redirect("/members")
+
+    return render_template("members.html", members=members, pagination=pagination, batchEdit=batchEdit)
 
 @main.route('/members/<int:id>', methods=['GET', 'POST'])
 def member(id):
@@ -41,7 +74,7 @@ def member(id):
         db.session.add(member)
         db.session.commit()
         flash("Jäsentiedot päivitetty onnistuneesti:<br><br>"+member.email)
-        return redirect(url_for("members"))
+        return redirect(url_for("main.members"))
 
     return render_template("member.html", form=form, member=[member])
 

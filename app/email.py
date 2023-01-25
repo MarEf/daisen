@@ -10,7 +10,6 @@ def send_async_email(app, msg):
 
 
 def send_email(to, subject, template, **kwargs):
-    print(os.environ.get('MAIL_USERNAME'))
     app = current_app._get_current_object()
     msg = Message("Test email", sender="   daisen@test.com", recipients=[to])
     msg.subject = subject

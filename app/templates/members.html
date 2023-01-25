@@ -7,36 +7,39 @@ Jäsenhakemukset
 
 {% block page_content%}
 
-<div class="actions">
-    <select>
-        <option value="accept">Hyväksy valitut</option>
-        <option value="delete">Poista valitut</option>
-    </select>
-    <input type="submit" class="btn btn-primary" id="edit" value="Suorita toiminto">
-</div>
+<form method="POST">
 
-<table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th> </th>
-            <th>Nimi</th>
-            <th>Sähköpostiosoite</th>
-            <th>Tila</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for member in members %}
-        <tr>
-            <td><input type="checkbox" id={{ member.id }}></td>
-            <td>{{member.name}}</td>
-            <td>{{member.email}}</td>
-            <td>{% if member.status == 1 %}Hyväksytty{% else %}Odottaa hyväksymistä{% endif %}</td>
-            <td><a href="/members/{{member.id}}">Muokkaa</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="actions">
+        {{batchEdit.actions()}}
+        {{batchEdit.submit(class="btn btn-primary")}}
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>Nimi</th>
+                <th>Sähköpostiosoite</th>
+                <th>Tila</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ batchEdit['member_'+member.id|string](id="member_"+member.id|string, value=member.id) }}</td>
+                <td>{{member.name}}</td>
+                <td>{{member.email}}</td>
+                <td>{% if member.status == 1 %}Hyväksytty{% else %}Odottaa hyväksymistä{% endif %}</td>
+                <td><a href="/members/{{member.id}}">Muokkaa</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{ batchEdit.hidden_tag() }}
+
+</form>
 
 <div class="pagination">
     {{macros.pagination_widget(pagination, ".members")}}

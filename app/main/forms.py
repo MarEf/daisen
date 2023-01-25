@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectMultipleField, widgets
+from wtforms import StringField, SubmitField, TextAreaField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Email, Length, Optional, Regexp
 
 class SignupFormEng(FlaskForm):
@@ -32,6 +32,11 @@ class EditMemberForm(FlaskForm):
     discovered = TextAreaField('Kuinka kuulit meistä?', validators=[Length(max=4000), Optional()])
     status = BooleanField('Hyväksy jäsenhakemus')
     submit = SubmitField('Tallenna')
+    
+class BatchEditForm(FlaskForm):
+    actions = SelectField(None, choices=[('accept', 'Hyväksy valitut'),('delete', 'Poista valitut')])
+    submit = SubmitField("Suorita toiminto")
+
 
 class EmailTest(FlaskForm):
     email = StringField("Sähköpostiosoite", validators=[DataRequired(), Length(max=254), Email()])
