@@ -7,6 +7,14 @@ Jäsenhakemukset
 
 {% block page_content%}
 
+<div class="sort">
+    <form method="POST">
+        {{ sortForm.hidden_tag() }}
+        {{ sortForm.keyword }}
+        {{ sortForm.submit(class="btn btn-primary")}}
+    </form>
+</div>
+
 <form method="POST">
 
     <div class="actions">
@@ -20,6 +28,7 @@ Jäsenhakemukset
                 <th> </th>
                 <th>Nimi</th>
                 <th>Sähköpostiosoite</th>
+                <th>Hakemus vastaanotettu</th>
                 <th>Tila</th>
                 <th></th>
             </tr>
@@ -30,6 +39,7 @@ Jäsenhakemukset
                 <td>{{ batchEdit['member_'+member.id|string](id="member_"+member.id|string, value=member.id) }}</td>
                 <td>{{member.name}}</td>
                 <td>{{member.email}}</td>
+                <td>{{moment(member.applicationDate).format('LL')}}</td>
                 <td>{% if member.status == 1 %}Hyväksytty{% else %}Odottaa hyväksymistä{% endif %}</td>
                 <td><a href="/members/{{member.id}}">Muokkaa</a></td>
             </tr>

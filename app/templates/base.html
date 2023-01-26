@@ -14,6 +14,7 @@
 {% block scripts %}
 {{ super() }}
 {{ moment.include_moment() }}
+{{ moment.locale('fi') }}
 {% endblock %}
 
 {% endblock %}
@@ -74,7 +75,7 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
 {% endblock %}
 
 <footer>
-    © YAMA ry, 2023
+    © YAMA ry, {{ moment(current_time).format('YYYY') }}
 </footer>
 
 {% endblock %}

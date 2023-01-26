@@ -1,10 +1,11 @@
 
 from ..models import User, Member
 from flask import render_template, flash, redirect, url_for, request
-from .forms import SignupFormEng, SignupFormFi, EditMemberForm, BatchEditForm
+from .forms import SignupFormEng, SignupFormFi, EditMemberForm, BatchEditForm, SortForm
 from wtforms import BooleanField
 from . import main
 from flask_login import login_required
+from datetime import datetime
 
 # Poista valmiista ohjelmistosta
 from .forms import EmailTest
@@ -22,7 +23,7 @@ def members():
         pass
 
     page = request.args.get('page', 1, type=int)
-    pagination = Member.query.paginate(page=page, per_page=20, error_out=False)
+    pagination = Member.query.order_by(Member.status, Member.applicationDate.desc()).paginate(page=page, per_page=20, error_out=False)
     members = pagination.items
 
     # Luodaan hallinnointilomake dynaamisesti
@@ -31,7 +32,15 @@ def members():
     
     batchEdit = Edit()
 
-    if batchEdit.is_submitted():
+    sortForm = SortForm()
+
+    if sortForm.validate_on_submit() and sortForm.keyword.data:
+        keyword = '%'+sortForm.keyword.data+'%'
+        page = request.args.get('page', 1, type=int)
+        pagination = Member.query.filter(Member.name.like(keyword)|Member.email.like(keyword)).order_by(Member.status, Member.applicationDate.desc()).paginate(page=page, per_page=20, error_out=False)
+        members = pagination.items
+
+    elif batchEdit.is_submitted() and batchEdit.actions.data:
         message = ""
         
         if (batchEdit.actions.data == "delete"):
@@ -48,12 +57,10 @@ def members():
                     message = message+member.email+"<br>"
         
         flash(message)
-
         db.session.commit()
 
         return redirect("/members")
-
-    return render_template("members.html", members=members, pagination=pagination, batchEdit=batchEdit)
+    return render_template("members.html", members=members, pagination=pagination, batchEdit=batchEdit, sortForm=sortForm, current_time=datetime.utcnow())
 
 @main.route('/members/<int:id>', methods=['GET', 'POST'])
 def member(id):
