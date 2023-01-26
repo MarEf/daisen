@@ -15,7 +15,7 @@ from .. import db, email
 
 @main.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", current_time=datetime.utcnow())
 
 @main.route('/members', methods=['GET', 'POST'])
 def members():
@@ -83,15 +83,15 @@ def member(id):
         flash("Jäsentiedot päivitetty onnistuneesti:<br><br>"+member.email)
         return redirect(url_for("main.members"))
 
-    return render_template("member.html", form=form, member=[member])
+    return render_template("member.html", form=form, member=[member], current_time=datetime.utcnow())
 
 @main.route('/users')
 def users():
-    return render_template("users.html")
+    return render_template("users.html", current_time=datetime.utcnow())
 
 @main.route('/users/<name>')
 def user(name):
-    return render_template("user.html", id=id)
+    return render_template("user.html", id=id, current_time=datetime.utcnow())
 
 @main.route('/join', methods=['GET', 'POST'])
 def join():
@@ -113,7 +113,7 @@ def liity():
         db.session.commit()
         flash('Tervetuloa YAMAan!')
         return redirect('/join')
-    return render_template('signup.html', form=form, lang='fi')
+    return render_template('signup.html', form=form, lang='fi', current_time=datetime.utcnow())
 
 
 @main.route('/kirjautumistesti')
@@ -128,4 +128,4 @@ def email_test():
         email.send_email(form.email.data, "Testiviesti", "mail")
         flash('Viesti lähetetty')
         return redirect('/email_test')
-    return render_template("email_test.html", form=form)
+    return render_template("email_test.html", form=form, current_time=datetime.utcnow())
