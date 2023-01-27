@@ -35,16 +35,20 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
             <div class="navbar-header">
                 <a class="navbar-brand" href="/">Daisen</a>
             </div>
+            {% if current_user.is_authenticated %}
             <ul class="nav navbar-nav">
                 <li><a href="/members">Jäsenhakemukset</a></li>
-                <li><a href="/users">Käyttäjätilit</a></li>
+                <li><a href="{{ url_for('auth.users') }}">Käyttäjätilit</a></li>
+                <li><a href="{{ url_for('auth.change_password') }}">Vaihda salasanaa</a></li>
             </ul>
+            {% endif %}
+
             <ul class="nav navbar-nav navbar-right">
-                {%if user%}
-                <li><a href="/"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu
+                {%if current_user.is_authenticated %}
+                <li><a href="{{ url_for('auth.logout') }}"><span class="glyphicon glyphicon-log-out"></span> Kirjaudu
                         ulos</a></li>
                 {% else %}
-                <li><a href=""><span class="glyphicon glyphicon-log-in"></span> Kirjaudu
+                <li><a href="{{ url_for('auth.login') }}"><span class="glyphicon glyphicon-log-in"></span> Kirjaudu
                         sisään</a></li>
                 {% endif %}
             </ul>

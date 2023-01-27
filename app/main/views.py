@@ -6,6 +6,7 @@ from wtforms import BooleanField
 from . import main
 from flask_login import login_required
 from datetime import datetime
+from sqlalchemy import or_
 
 # Poista valmiista ohjelmistosta
 from .forms import EmailTest
@@ -18,6 +19,7 @@ def index():
     return render_template("index.html", current_time=datetime.utcnow())
 
 @main.route('/members', methods=['GET', 'POST'])
+@login_required
 def members():
     class Edit(BatchEditForm):
         pass
@@ -37,7 +39,7 @@ def members():
     if sortForm.validate_on_submit() and sortForm.keyword.data:
         keyword = '%'+sortForm.keyword.data+'%'
         page = request.args.get('page', 1, type=int)
-        pagination = Member.query.filter(Member.name.like(keyword)|Member.email.like(keyword)).order_by(Member.status, Member.applicationDate.desc()).paginate(page=page, per_page=20, error_out=False)
+        pagination = Member.query.filter(or_(Member.name.like(keyword), Member.email.like(keyword))).order_by(Member.status, Member.applicationDate.desc()).paginate(page=page, per_page=20, error_out=False)
         members = pagination.items
 
     elif batchEdit.is_submitted() and batchEdit.actions.data:
@@ -63,6 +65,7 @@ def members():
     return render_template("members.html", members=members, pagination=pagination, batchEdit=batchEdit, sortForm=sortForm, current_time=datetime.utcnow())
 
 @main.route('/members/<int:id>', methods=['GET', 'POST'])
+@login_required
 def member(id):
     # IF USER NOT LOGGED IN, ABORT
     member = Member.query.get_or_404(id)
@@ -84,14 +87,6 @@ def member(id):
         return redirect(url_for("main.members"))
 
     return render_template("member.html", form=form, member=[member], current_time=datetime.utcnow())
-
-@main.route('/users')
-def users():
-    return render_template("users.html", current_time=datetime.utcnow())
-
-@main.route('/users/<name>')
-def user(name):
-    return render_template("user.html", id=id, current_time=datetime.utcnow())
 
 @main.route('/join', methods=['GET', 'POST'])
 def join():
@@ -115,6 +110,8 @@ def liity():
         return redirect('/join')
     return render_template('signup.html', form=form, lang='fi', current_time=datetime.utcnow())
 
+
+#Testireittejä. REMOVE IN PROD
 
 @main.route('/kirjautumistesti')
 @login_required

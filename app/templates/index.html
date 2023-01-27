@@ -2,7 +2,7 @@
 {% block pagetitle %}Etusivu{% endblock %}
 
 {% block head %}
-    {{ super() }}
+{{ super() }}
 {% endblock %}
 
 {% block headline %}
@@ -10,5 +10,13 @@ Tervetuloa Daisen-jäsenhallintajärjestelmään!
 {% endblock %}
 
 {% block page_content %}
-<p>Hallinnoidaksesi jäsenhakemuksia sinun on ensin kirjauduttava sisään.</p>
+
+<p>Daisen tarjoaa selkeän näkymän kerhon jäsenhakemuksista ja mahdollistaa valittujen hakemusten hyväksymisen (tai
+    poiston, jos sille tuulelle satutaan) yhdellä klikkauksella. Palvelu sisältää myös liittymislomakkeen (kahdella
+    kielellä), jonka
+    voi
+    liittää haluamalleen verkkosivulle.</p>
+{% if not current_user.is_authenticated %}
+<p>Käyttääksesi järjestelmää sinun on ensin kirjauduttava sisään.</p>
+{% endif %}
 {% endblock %}

@@ -65,3 +65,7 @@ select {
     justify-content: flex-end;
     margin-bottom: 1em;
 }
+
+.btn-primary>a {
+    color: white;
+}

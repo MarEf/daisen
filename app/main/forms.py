@@ -41,7 +41,6 @@ class SortForm(FlaskForm):
     keyword = StringField(label='', validators=[Length(max=255)])
     submit = SubmitField("Rajaa jäsenhakemuksia")
 
-
 # REMOVE IN PROD
 class EmailTest(FlaskForm):
     email = StringField("Sähköpostiosoite", validators=[DataRequired(), Length(max=254), Email()])

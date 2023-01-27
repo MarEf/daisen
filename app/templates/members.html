@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
+
 {% block headline %}
+{% if current_user.is_authenticated %}
 Jäsenhakemukset
+{% else %}
+Kirjaudu sisään käsitelläksesi jäsenhakemuksia
+{% endif %}
 {% endblock %}
 
 {% block page_content%}
 
+{% if current_user.is_authenticated %}
 <div class="sort">
     <form method="POST">
         {{ sortForm.hidden_tag() }}
@@ -54,5 +60,6 @@ Jäsenhakemukset
 <div class="pagination">
     {{macros.pagination_widget(pagination, ".members")}}
 </div>
+{% endif %}
 
 {% endblock %}

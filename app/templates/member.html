@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+
 {% block headline %}
+{% if current_user.is_authenticated %}
 Muokkaa tietoja
+{% else %}
+Kirjaudu sisään muokataksesi jäsenten tietoja
+{% endif %}
 {% endblock %}
 
 {% block page_content %}
+{% if current_user.is_authenticated %}
 {{ wtf.quick_form(form) }}
+{% endif %}
 {% endblock %}
