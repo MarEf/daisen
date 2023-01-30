@@ -26,6 +26,7 @@ Kirjaudu sisään nähdäksesi käyttäjätilit
             <th>Käyttäjätunnus</th>
             <th>Sähköpostiosoite</th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +35,8 @@ Kirjaudu sisään nähdäksesi käyttäjätilit
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
             <td><a href="{{ url_for('auth.users') }}/{{user.id}}">Muokkaa</a></td>
+            <td><a href="{{ url_for('auth.delete_user', id=user.id) }}" class="danger"
+                    onclick="return confirm('Oletko varma, että haluat poistaa tämän käyttäjätilin?');">Poista</a></td>
         </tr>
         {% endfor %}
     </tbody>

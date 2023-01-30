@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block headline %}
+Poista seuraava käyttäjätili: {{user.username}}
+{% endblock %}
+
+{% block page_content %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.confirm() }} {{ form.confirm.label }}
+    {{ form.submit(class="btn btn-danger") }}
+</form>
+{% endblock %}

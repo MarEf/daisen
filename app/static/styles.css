@@ -69,3 +69,9 @@ select {
 .btn-primary>a {
     color: white;
 }
+
+.danger,
+.danger:hover {
+    font-weight: bold;
+    color: darkred;
+}

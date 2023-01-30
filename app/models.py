@@ -1,8 +1,9 @@
 from flask import current_app, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
+from datetime import datetime, timedelta
 from . import db
+import jwt
 
 class Member(db.Model):
     __tablename__ = 'members'
@@ -44,6 +45,34 @@ class User(UserMixin, db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def generate_reset_token(self):
+        token = jwt.encode({
+                "reset": self.id,
+                "exp": datetime.utcnow()+timedelta(minutes=20)
+            },
+            current_app.config['SECRET_KEY'],
+            algorithm="HS256"
+            )
+        return token
+
+    def reset_password(token, new_password):
+        try:
+            data = jwt.decode(
+                token,
+                current_app.config['SECRET_KEY'],
+                leeway=timedelta(seconds=10),
+                algorithms=["HS256"]
+                )
+        except:
+            return False
+        user = User.query.get(data.get("reset"))
+        if user is None:
+            return False
+        
+        user.password = new_password
+        db.session.add(user)
+        return True
 
 from . import login_manager
 
