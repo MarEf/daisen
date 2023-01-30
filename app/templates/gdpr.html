@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% headline %}
+{% block headline %}
 {% if lang=='fi'%}
 Henkilötietojen keräys
 {% else %}
@@ -8,7 +8,7 @@ Collection of Personal Information
 {% endif %}
 {% endblock %}
 
-{% page_content %}
+{% block page_content %}
 {% if lang=='fi'%}
 <h2>Henkilötiedot</h2>
 

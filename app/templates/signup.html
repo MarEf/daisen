@@ -15,8 +15,10 @@ Join
 {{ wtf.quick_form(form) }}
 {% if lang=='fi' %}
 <div class="note">* Pakollinen kenttä</div>
+<p><a href="{{url_for('main.gdpr_fi')}}" target="_blank">Lisätietoa henkilötietojen keräyksestä</a></p>
 {% else %}
 <div class="note">* Required field</div>
+<p><a href="{{url_for('main.gdpr_en')}}" target="_blank">More about the collection of personal information</a></p>
 {% endif %}
 
 {% endblock %}
