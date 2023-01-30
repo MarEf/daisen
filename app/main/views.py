@@ -8,10 +8,7 @@ from flask_login import login_required
 from datetime import datetime
 from sqlalchemy import or_
 
-# Poista valmiista ohjelmistosta
-from .forms import EmailTest
-
-from .. import db, email
+from .. import db
 
 
 @main.route('/')
@@ -97,7 +94,7 @@ def join():
         db.session.commit()
         flash('Welcome to YAMA!')
         return redirect('/join')
-    return render_template('signup.html', form=form, lang='en')
+    return render_template('signup.html', form=form, lang='en',current_time=datetime.utcnow())
 
 @main.route('/liity', methods=['GET', 'POST'])
 def liity():
@@ -110,19 +107,10 @@ def liity():
         return redirect('/join')
     return render_template('signup.html', form=form, lang='fi', current_time=datetime.utcnow())
 
+@main.route('/gdpr/fi')
+def gdpr_fi():
+    return render_template('gdpr.html', lang='fi', current_time=datetime.utcnow())
 
-#Testireittejä. REMOVE IN PROD
-
-@main.route('/kirjautumistesti')
-@login_required
-def secret():
-    return "Kirjaudu sisään!"
-
-@main.route("/email_test", methods=["GET", "POST"])
-def email_test():
-    form = EmailTest()
-    if form.validate_on_submit():
-        email.send_email(form.email.data, "Testiviesti", "mail")
-        flash('Viesti lähetetty')
-        return redirect('/email_test')
-    return render_template("email_test.html", form=form, current_time=datetime.utcnow())
+@main.route('/gdpr/en')
+def gdpr_en():
+    return render_template('gdpr.html', lang='en', current_time=datetime.utcnow())

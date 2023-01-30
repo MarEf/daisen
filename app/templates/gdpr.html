@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% headline %}
+{% if lang=='fi'%}
+Henkilötietojen keräys
+{% else %}
+Collection of Personal Information
+{% endif %}
+{% endblock %}
+
+{% page_content %}
+{% if lang=='fi'%}
+<h2>Henkilötiedot</h2>
+
+<div>
+    <p>YAMA kerää jäsenluetteloonsa seuraavat tiedot jokaisesta liittyneestä jäsenestä:</p>
+
+    <ul>
+        <li>Nimi</li>
+        <li>Asuinpaikkakunta</li>
+        <li>HYY:n jäsenyys</li>
+        <li>Sähköpostiosoite</li>
+    </ul>
+
+    <p>Lisäksi HYY:n jäseniltä kerätään myös opiskelijanumero HYY:n ehtojen mukaisesti.</p>
+    <p>Näihin tietoihin pääsevät käsiksi vain YAMA:n ajankohtaisen hallituksen jäsenet.</p>
+
+    <p></p>
+
+    <p>Paikoitellen kerätään myös seuraavia henkilötiedoiksi laskettavia tietoja:</p>
+    <ul>
+        <li>Kasvot sisältäviä kuvia</li>
+        <li>Kokouksissa läsnäolevien nimet</li>
+        <li>Virallisissa (esim. erityisoikeuksien kuten avainten myötämisen) konteksteissa henkilötunnukset</li>
+    </ul>
+
+    <p>Kuvat ja läsnäololistat ovat jokaiselle jäsenelle julkista tietoa. Henkilötunnukset ovat vain hallituksen
+        jäsenten käsittelemissä versioissa pöytäkirjoista. </p>
+</div>
+
+<h2>Jäsenten oikeudet</h2>
+<div>
+    <p>Dokumentoiduilla jäsenillä on oikeus päästä käsiksi tietoihinsa ja halutessaan tulla poistetuksi
+        tietokannastamme. Kuitenkin vaatimuksista johtuen, virallinen jäsen voi olla vain jos hyväksyy nimensä
+        lisäämisen jäsenlistaan. </p>
+</div>
+{% else %}
+<h2>Personal Information</h2>
+
+<div>
+    <p> YAMA collects the following information about all of its members:</p>
+
+    <ul>
+        <li>Name</li>
+        <li>Place of residence</li>
+        <li>HYY membership status</li>
+        <li>Email address</li>
+    </ul>
+
+    <p>Additionally from HYY members, a student number is collected per HYY regulation.</p>
+    <p>Only the current YAMA board members have access to the aformentioned information.</p>
+
+    <p></p>
+
+    <p>Following information may also be collected occasionally:</p>
+    <ul>
+        <li>Photos with faces visible</li>
+        <li>Names of those present in official meetings</li>
+        <li>Social security number in official contexts (i.e. granting of special privileges like possession of keys to
+            the clubroom)</li>
+    </ul>
+
+    <p>Photos and name lists are available to all YAMA members. Social security numbers are only on versions of meeting
+        records accessible only to board members.</p>
+</div>
+
+<h2>Rights of Members</h2>
+<div>
+    <p>Documented members have the right to request their personal information and to be removed from our database if
+        they so request. However, one can only be an official member of YAMA if they allow their name to be on the list
+        of members due to regulation.</p>
+</div>
+{% endif %}
+{% endblock %}

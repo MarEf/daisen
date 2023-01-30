@@ -2,6 +2,10 @@ if (document.getElementById("password_toggle")) {
     document.getElementById("password_toggle").addEventListener("click", function () { togglePassword() })
 }
 
+if (document.getElementById("hyy")) {
+    document.getElementById("hyy").addEventListener("click", function () { toggleRequired("hyy", "opnro") })
+}
+
 function togglePassword() {
     let toggle = document.getElementById("password_toggle");
     const passwords = document.querySelectorAll("[id$='password']");
@@ -26,5 +30,17 @@ function selectAll(checkbox, toSelect) {
         } else {
             boxes[i].checked = false;
         }
+    }
+}
+
+/* Mikäli check on valittu, aseta toggleField pakolliseksi */
+function toggleRequired(check, toggleField) {
+    let field = document.getElementById(toggleField);
+    let require = document.getElementById(check);
+
+    if (require.checked) {
+        field.required = true
+    } else {
+        field.required = false
     }
 }
