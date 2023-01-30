@@ -1,12 +1,30 @@
-document.getElementById("password_toggle").addEventListener("click", function () { togglePassword() })
+if (document.getElementById("password_toggle")) {
+    document.getElementById("password_toggle").addEventListener("click", function () { togglePassword() })
+}
 
 function togglePassword() {
     let toggle = document.getElementById("password_toggle");
-    let password_field = document.getElementById("password");
-    if (toggle.checked) {
-        password_field.type = 'text';
+    const passwords = document.querySelectorAll("[id$='password']");
+
+    for (let i = 0; i < passwords.length; i++) {
+        if (toggle.checked) {
+            passwords[i].type = 'text';
+        }
+        else {
+            passwords[i].type = 'password';
+        }
     }
-    else {
-        password_field.type = 'password';
+}
+
+
+function selectAll(checkbox, toSelect) {
+    const boxes = document.querySelectorAll("[name^=" + toSelect + "]");
+
+    for (let i = 0; i < boxes.length; i++) {
+        if (checkbox.checked) {
+            boxes[i].checked = true;
+        } else {
+            boxes[i].checked = false;
+        }
     }
 }

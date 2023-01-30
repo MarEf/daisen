@@ -78,6 +78,10 @@ Daisen hallintajärjestelmä - {% block pagetitle %}{% endblock %}
 </div>
 {% endblock %}
 
+<div class="scrip-container">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</div>
+
 <footer>
     © YAMA ry, {{ moment(current_time).format('YYYY') }}
 </footer>

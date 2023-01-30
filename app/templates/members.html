@@ -31,7 +31,7 @@ Kirjaudu sisään käsitelläksesi jäsenhakemuksia
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th> </th>
+                <th><input type="checkbox" id="select_all" onchange="selectAll(this, 'member_')"></th>
                 <th>Nimi</th>
                 <th>Sähköpostiosoite</th>
                 <th>Hakemus vastaanotettu</th>
@@ -60,6 +60,7 @@ Kirjaudu sisään käsitelläksesi jäsenhakemuksia
 <div class="pagination">
     {{macros.pagination_widget(pagination, ".members")}}
 </div>
+
 {% endif %}
 
 {% endblock %}

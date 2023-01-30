@@ -22,7 +22,8 @@ class EditUserForm(FlaskForm):
     submit = SubmitField("Muokkaa käyttäjätietoja")
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField("Vanha salasana", validators=[DataRequired(), Length(min=16)])
-    password = PasswordField("Uusi salasana (Vähintään 16 merkkiä)", validators=[Length(min=16), EqualTo("password2", message="Salasanat eivät ole samat")])
-    password2 = PasswordField("Kirjoita uusi salasana uudelleen", validators=[DataRequired(), Length(min=16)])
+    old_password = PasswordField("Vanha salasana", validators=[DataRequired(), Length(min=16)], id="old_password")
+    password = PasswordField("Uusi salasana (Vähintään 16 merkkiä)", validators=[Length(min=16), EqualTo("password2", message="Salasanat eivät ole samat")], id="new_password")
+    password2 = PasswordField("Kirjoita uusi salasana uudelleen", validators=[DataRequired(), Length(min=16)], id="confirm_password")
+    show_password = BooleanField("Näytä salasanat", id="password_toggle")
     submit = SubmitField("Vaihda salasanaa")
