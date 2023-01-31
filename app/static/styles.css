@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@400;700&display=swap');
+
 header {
     display: flex;
     flex-direction: row;
@@ -8,10 +10,13 @@ header {
     min-height: 70px;
     width: 100%;
     border-radius: 0;
+    font-size: 130%;
 }
 
 .navbar-brand {
-    padding: 25px 25px
+    padding: 25px 25px;
+    font-size: 200%;
+    font-family: 'Bebas Neue' !important;
 }
 
 @media (min-width: 768px) {
@@ -26,6 +31,13 @@ body {
     min-height: 100vh;
 }
 
+
+.container,
+footer {
+    font-size: 120%;
+}
+
+
 h1 {
     text-align: center;
     margin-bottom: 2em;
@@ -39,8 +51,7 @@ h1 {
 footer {
     position: relative;
     margin-top: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 10px 15px;
 }
 
 select {
@@ -53,6 +64,25 @@ select {
     border-radius: .375rem;
 }
 
+input,
+textarea {
+    font-size: 100% !important;
+}
+
+input[type='text']:not([id='keyword']) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+input[id='keyword'] {
+    padding: 0.5rem;
+}
+
+textarea {
+    height: 10em !important;
+    resize: none;
+}
+
 .actions {
     display: flex;
     flex-direction: row;
@@ -60,18 +90,32 @@ select {
     margin-bottom: 2em;
 }
 
-.sort {
+.sort form {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
     margin-bottom: 1em;
+}
+
+table * {
+    padding-top: 0.7em !important;
+    padding-bottom: 0.7em !important;
 }
 
 .btn-primary>a {
     color: white;
+    font-size: 120%;
 }
 
 .danger,
 .danger:hover {
     font-weight: bold;
     color: darkred;
+}
+
+.alert-warning {
+    color: hsl(38, 40%, 19%);
+    background-color: hsl(50, 81%, 90%);
+    border-color: hsl(40, 82%, 85%);
 }
